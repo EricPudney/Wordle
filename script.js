@@ -84,7 +84,6 @@ function clearGuesses() {
     }
 }
 
-
 // creates boxes for each letter and assigns ids
 function createBoxes(rows) {
     for (i = 1; i <= rows; i++) {
@@ -135,26 +134,28 @@ function checkWord() {
                 }
                 else {
                     document.getElementById("l" + currentAttempt + "let" + (i + 1)).style.backgroundColor = "grey";
-                    console.log("got a grey");
                 }
             }
         }
-
-        if (attempt.toString().replaceAll(",", "") === answer) {
-            victory();
-        }
-        else if (currentAttempt === 6) {
-            defeat();
-        }
-
-        else {
-            clearGuesses();
-            currentAttempt++;
-            currentLetter = 1;
-            document.getElementById("l" + currentAttempt + "let1").focus();
-        }
+        setTimeout(checkGameEnd, 500);
     }
     else { alert("Sorry, that word is not in our dictionary"); }
+}
+
+// checks whether game is over
+function checkGameEnd() {
+    if (attempt.toString().replaceAll(",", "") === answer) {
+        victory();
+    }
+    else if (currentAttempt === 6) {
+        defeat();
+    }
+    else {
+        clearGuesses();
+        currentAttempt++;
+        currentLetter = 1;
+        document.getElementById("l" + currentAttempt + "let1").focus();
+    }
 }
 
 // updates keyboard to right of box area
@@ -169,7 +170,6 @@ function updateKeyboard() {
         }
     }
 }
-
 
 // runs in event of a win
 function victory() {
